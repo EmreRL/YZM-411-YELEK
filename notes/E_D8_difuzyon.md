@@ -1,4 +1,4 @@
-# Bireysel not (10d) — Osman …, Paket E, Deney D8
+# Bireysel not (10d) — Osman Acar, Paket E, Deney D8
 
 **Çalıştırdığım deney ve dosya:** D8 — `notebooks/E_D8_difuzyon.ipynb`, çıktı `results/d8_difuzyon.csv`, görsel `results/fig/d8_K-1.png`.
 Değiştirdiğim tek ayar: renk maskesinden önceki doğrusal difüzyonun adım sayısı (0 / 10 / 40, dt = 0,20, her kanal ayrı); karşılaştırma için Gauss σ = 4. Sabit kalanlar: params.json (dondurma tarihi 2026-11-10T21:09:21), B'nin medyan filtresi ve Canny 50/150 dahil.
