@@ -1,4 +1,4 @@
-# Bireysel not (10d) — Ad Soyad, Paket A, Deney D1
+# Bireysel not (10d) — Hatice Rana Yamaç, Paket A, Deney D1
 
 **Çalıştırdığım deney ve dosya:** D1 — `notebooks/A_veri_ve_etiket.ipynb`, çıktı `results/d1_kucultme.csv`, görsel `results/fig/d1_K-1.png`.
 Değiştirdiğim tek ayar: küçültme oranı (1 / 0,5 / 0,25 / 0,125, INTER_AREA; 0,25'te ayrıca INTER_NEAREST; 0,125 → 1 geri büyütme). Kutular aynı oranla küçültüldü. Sabit kalanlar: params.json (dondurma tarihi 2026-11-10T21:09:21), piksel cinsinden eşikler (gövde ≥ 40 px) dahil.
