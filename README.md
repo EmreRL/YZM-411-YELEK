@@ -101,17 +101,3 @@ Sınıfı "Yelek giyili" olan görüntüde seçilen kişinin gövdesiyle en çok
 "kimse giymiyor" sayılır. Kutuları yeniden çizerseniz aktarımı yeniden çalıştırın (değişiklik yoksa dosyaya dokunmaz;
 varsa eski `gt.json`'un kaydını alıp yazar).
 
-Yedek araç: `tools/kutu_cizer.html` (Drive'dan indirip tarayıcıda açın) → `data/images_1024` içindeki PNG'leri seçin →
-`data/gt.json`'u yükleyin. **G** = gövde, **Y** = yelek, **K** = kişi kutusu. Bitince **gt.json indir** ve Drive'daki
-`data/gt.json`'un yerine koyun.
-
-## Açık sorular (hocaya)
-
-- 5f "TP/FP/FN'yi yalnız altı kontrol görüntüsünde sayın": hangi altı? Cevap gelene kadar: A, yöntemlerden önce 2b'deki
-  koşullardan birer görüntü seçip `_meta.tpfpfn_ids`'e yazar; tabloda diğerleri "—".
-- 10a "sekiz görüntünün kaynak ve lisans tablosu": H6 her görüntüyü istediği için tablo 20 görüntüyü kapsar.
-
-## Kişisel veri
-
-Kendi çektiğiniz fotoğraflarda kişilerin izni gerekir; yüzleri bulanıklaştırmak gerekirse küçültmeden önce yapın ve
-`sources.csv/kisisel_veri_notu`'na yazın. Başkasının görselini kendi çekiminiz gibi sunmayın.
