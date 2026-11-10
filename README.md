@@ -7,10 +7,10 @@ kanıtı. Her yöntemin hangi soruyu yanıtlayıp hangisini yanıtlayamadığı 
 
 | Paket | Kişi | Ödev adımları | Deney | Ana çıktı | Sunum (slayt / soru) |
 |---|---|---|---|---|---|
-| **A** Veri, doğru sınıf, hata | ……… | 2, 3, 9 | D1 küçültme | `data/images`, `sources.csv`, `gt.json`, hata incelemesi | 2, 15 / S5, S7 |
+| **A** Veri, doğru sınıf, hata | Hatice | 2, 3, 9 | D1 küçültme | `data/images`, `sources.csv`, `gt.json`, hata incelemesi | 2, 15 / S5, S7 |
 | **B** Renk + filtre | Emre | 5 | D2 filtre | `params.json` (dondurma), `color.csv`, maskeler | 3–4 / S1, S6 |
-| **C** Kenar + şablon | ……… | 6 | D4 Canny | `edge.csv`, `template*.csv` | 5–6 / S2, S3 |
-| **D** Öznitelik | ……… | 7 | D6 eşleştirme | `features.json`, SIFT/HOG görselleri | 7–8 / S4 |
+| **C** Kenar + şablon | İrem & Berk | 6 | D4 Canny | `edge.csv`, `template*.csv` | 5–6 / S2, S3 |
+| **D** Öznitelik | İbrahim | 7 | D6 eşleştirme | `features.json`, SIFT/HOG görselleri | 7–8 / S4 |
 | **E** Araştırma + birleştirme | Osman | 1, ortak kod, sonuç tablosu | D8 difüzyon | 1. slayt, `main.ipynb`, `final_table.csv` | 1, 14 / S6 |
 
 Herkes ayrıca: kendi tahminleri (`predictions.md`), yarım sayfalık not (`notes/`), yapay zekâ beyanına kendi satırı,
