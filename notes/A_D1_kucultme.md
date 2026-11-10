@@ -1,0 +1,12 @@
+# Bireysel not (10d) — Ad Soyad, Paket A, Deney D1
+
+**Çalıştırdığım deney ve dosya:** D1 — `notebooks/A_veri_ve_etiket.ipynb`, çıktı `results/d1_kucultme.csv`, görsel `results/fig/d1_K-1.png`.
+Değiştirdiğim tek ayar: küçültme oranı (1 / 0,5 / 0,25 / 0,125, INTER_AREA; 0,25'te ayrıca INTER_NEAREST; 0,125 → 1 geri büyütme). Kutular aynı oranla küçültüldü. Sabit kalanlar: params.json (dondurma tarihi 2026-11-10T21:09:21), piksel cinsinden eşikler (gövde ≥ 40 px) dahil.
+
+**Önceki tahminim:** G-1 görüntüsü 1.0'dan 0.125 oranına küçültüldükçe gövde içi Canny kenar oranı belirgin şekilde azalacak (yaklaşık %60'tan fazla düşüş gösterecek), 0.25 ölçeğinde INTER_NEAREST ise INTER_AREA'ya göre basamaklanma (aliasing) nedeniyle daha yüksek sahte kenar oranı üretecektir.
+
+**Ölçtüğüm sonuç:** 12 kontrol görüntüsünde gövdedeki Canny oranı 1 → 0,5 → 0,25 → 0,125 için 0,115 → 0,165 → 0,223 → 0,265 oldu. Yani azalmadı, yaklaşık 2,3 katına çıktı; G-1'de de 0,091 → 0,272. 0,25'te NEAREST 0,226, AREA 0,223 verdi (G-1: 0,211 ve 0,193). Gövde maske oranı 0,25'e kadar %17,4–17,7 arasında sabit kaldı, 0,125'te %11,4'e indi. Doğru sınıf sayısı 8 → 7 → 6 → 1/12'ye düştü. "Belirsiz" sayısı 0 → 1 → 3 → 9 oldu; ilk dönen K-4 (0,5'te gövde 21 px). 0,125'ten geri büyütmede Canny oranı 0,009'da kaldı, maske oranı ise %17,3'e döndü.
+
+**Açıklama:** Tahminin ilk yarısı tutmadı. Bunun nedeni, ölçünün kendisinin ölçeğe bağlı olması: Canny 1 piksel kalınlığında çizgi üretir, bu yüzden kenar pikseli sayısı uzunlukla (∝ r) azalır, gövde alanı ise alanla (∝ r²) azalır. Oran ∝ 1/r büyür. INTER_AREA ayrıca geçişleri daha az piksele sıkıştırır ve piksel başına gradyan büyür, sabit eşiği daha çok piksel geçer. Bu, şeridin daha iyi görüldüğü anlamına gelmez: 0,125'te K-1'in gövdesi 18 px'tir ve şerit Nyquist sınırının altına düşmüştür. NEAREST'in fazlası tahmin yönünde ama küçük (örtüşme etkisi en çok G-1'de görülüyor). Geri büyütme, kaybolan yüksek frekansı getirmez: LINEAR yumuşak rampalar üretir, kenar oranı orijinalin (0,115) çok altında kalır. Renk ise düşük frekanslı olduğu için geri gelir. "Belirsiz"ler kuralın piksel eşiğinin ölçekle birlikte ölçeklenmemesinden kaynaklanıyor.
+
+**Sonraki kontrol:** Kenar oranını gövde alanı yerine gövde çevresine bölmek ya da her ölçekte gövdeyi sabit yüksekliğe (ör. 128 px) yeniden örnekleyip ölçmek; `min_torso_h`'yi oranla ölçeklemek. (Sonuç tabloda ayrı "sonraki kontrol" satırı olur.)
