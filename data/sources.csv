@@ -1,0 +1,21 @@
+id,ayirim,kaynak,lisans,kosul,kaynak_url,yazar_atif,kisisel_veri_notu
+G-1,gelistirme,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),"normal ışık; büyük, şeridi net sarı yelek (6b şablonu ve 7. adım SIFT kırpıntısı)",Roboflow Universe — Construction Site Safety (link eklenecek),,
+G-2,gelistirme,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),normal ışık; turuncu yelek,Roboflow Universe — Construction Site Safety (link eklenecek),,
+G-3,gelistirme,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),yelekli işçi; turuncu trafik konisi (yelek renginde nesne),Roboflow Universe — Construction Site Safety (link eklenecek),,
+G-4,gelistirme,Roboflow Construction Site Safety,Belirsiz — filigranlı stok/medya görseli; lisansı doğrulanamadı,yeleksiz işçiler; sarı vinç (yelek renginde nesne),vcg.com (Visual China Group) — görselde filigran var,,
+G-5,gelistirme,Kendi çekimimiz,Belirsiz — filigranlı stok/medya görseli; lisansı doğrulanamadı,"yeleksiz; düz kırmızı tişört, şerit yok",paixin.com — görselde filigran var,,
+G-6,gelistirme,Kendi çekimimiz,Ekibe ait,giyili değil: askıda yelek; yeleksiz kişi,Kendi çekimimiz,,Ekip beyanı: kişinin izni alındı
+G-7,gelistirme,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),düşük ışık / koyu arka plan; yelekli,Roboflow Universe — Construction Site Safety (link eklenecek),,
+G-8,gelistirme,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),"uzak, küçük işçi (gövde 36 px < 40)",Roboflow Universe — Construction Site Safety (link eklenecek),,
+K-1,kontrol,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),normal ışık; sarı yelek,Roboflow Universe — Construction Site Safety (link eklenecek),,
+K-2,kontrol,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),normal ışık; turuncu yelek,Roboflow Universe — Construction Site Safety (link eklenecek),,
+K-3,kontrol,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),gölge / iç mekân düşük ışık; yelekli,Roboflow Universe — Construction Site Safety (link eklenecek),,
+K-4,kontrol,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),"uzak, küçük işçi (gövde 42 px); yelekli",Roboflow Universe — Construction Site Safety (link eklenecek),,
+K-5,kontrol,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),koni; yeleksiz işçi (9a hata incelemesi adayı),Roboflow Universe — Construction Site Safety (link eklenecek),,
+K-6,kontrol,Roboflow Construction Site Safety,Belirsiz — filigranlı stok/medya görseli; lisansı doğrulanamadı,sarı iş makinesi (ekskavatör); yelekli,huitu.com — görselde filigran var,TPGimages,
+K-7,kontrol,Kendi çekimimiz,Belirsiz — filigranlı stok/medya görseli; lisansı doğrulanamadı,"yeleksiz; kırmızı tişört + mavi tulum, şerit yok",paixin.com — görselde filigran var,,
+K-8,kontrol,Roboflow Construction Site Safety,Belirsiz — filigranlı stok/medya görseli; lisansı doğrulanamadı,yeleksiz; sarı baret (yelek renginde nesne),Tencent Video (v.qq.com) video karesi — filigran var,,
+K-9,kontrol,Kendi çekimimiz,Ekibe ait,giyili değil: sandalyede yelek; yeleksiz kişi,Kendi çekimimiz,,Ekip beyanı: kişinin izni alındı
+K-10,kontrol,Kendi çekimimiz,Ekibe ait,giyili değil: elde tutulan yelek,Kendi çekimimiz,,Ekip beyanı: kişilerin izni alındı
+K-11,kontrol,Roboflow Construction Site Safety,Belirsiz — filigranlı stok/medya görseli; lisansı doğrulanamadı,yeleksiz; normal iş kıyafeti,ah.people.com.cn (People's Daily Anhui) — filigran var,,
+K-12,kontrol,Roboflow Construction Site Safety,CC BY 4.0 (veri seti sayfasından doğrulanacak),karanlık / gece iç mekân; yelekli (yalnız şeritler seçiliyor),Roboflow Universe — Construction Site Safety (link eklenecek),,

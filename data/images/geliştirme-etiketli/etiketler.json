@@ -1,0 +1,170 @@
+{
+  "G_1.jpg": {
+    "genislik": 490,
+    "yukseklik": 358,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 233,
+        "y1": 106,
+        "x2": 479,
+        "y2": 358,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 267,
+        "y1": 123,
+        "x2": 465,
+        "y2": 358,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "G_2.jpg": {
+    "genislik": 996,
+    "yukseklik": 339,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 412,
+        "y1": 91,
+        "x2": 582,
+        "y2": 327,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 418,
+        "y1": 102,
+        "x2": 576,
+        "y2": 327,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "G_3.jpeg": {
+    "genislik": 1024,
+    "yukseklik": 572,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 324,
+        "y1": 103,
+        "x2": 512,
+        "y2": 345,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 337,
+        "y1": 106,
+        "x2": 480,
+        "y2": 307,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "G_4.jpg": {
+    "genislik": 1200,
+    "yukseklik": 800,
+    "dogru_sinif": "Yelek yok",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 218,
+        "y1": 503,
+        "x2": 484,
+        "y2": 800,
+        "secilen_kisi": true
+      }
+    ]
+  },
+  "G_5.jpg": {
+    "genislik": 915,
+    "yukseklik": 1023,
+    "dogru_sinif": "Yelek yok",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 185,
+        "y1": 483,
+        "x2": 786,
+        "y2": 1023,
+        "secilen_kisi": true
+      }
+    ]
+  },
+  "G_6.jpeg": {
+    "genislik": 1024,
+    "yukseklik": 572,
+    "dogru_sinif": "Yelek var, giyili değil",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 672,
+        "y1": 207,
+        "x2": 863,
+        "y2": 388,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 114,
+        "y1": 137,
+        "x2": 281,
+        "y2": 511,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "G_7.jpg": {
+    "genislik": 1280,
+    "yukseklik": 720,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 368,
+        "y1": 187,
+        "x2": 1110,
+        "y2": 720,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 371,
+        "y1": 312,
+        "x2": 908,
+        "y2": 720,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "G_8.jpg": {
+    "genislik": 1024,
+    "yukseklik": 332,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 400,
+        "y1": 238,
+        "x2": 431,
+        "y2": 274,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 401,
+        "y1": 239,
+        "x2": 429,
+        "y2": 272,
+        "secilen_kisi": false
+      }
+    ]
+  }
+}

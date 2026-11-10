@@ -1,0 +1,53 @@
+{
+  "dev_id": "G-1",
+  "yelek_kutusu": [
+    267,
+    123,
+    465,
+    358
+  ],
+  "aci_deg": 20,
+  "olcek": 0.7,
+  "7a": {
+    "oran_testi": 0.75,
+    "ransac_px": 3.0,
+    "model": "homography",
+    "kp_A": 188,
+    "kp_B": 141,
+    "gecen_eslesme": 73,
+    "ic_deger": 64,
+    "kose_hatasi_px": 0.4819289445877075,
+    "kose_hatalari_px": [
+      0.26,
+      0.33,
+      0.27,
+      1.07
+    ]
+  },
+  "7b_sift": {
+    "top_k": 50,
+    "yapi_tensoru": {
+      "düz": 15,
+      "kenar": 29,
+      "köşe": 6
+    },
+    "renk_maskesi_ustunde": 3,
+    "_not": "Düz/kenar/köşe ayrımı yapı tensörü özdeğerleriyle yardımcı ölçüdür; görsel yorumla birlikte yazın."
+  },
+  "7b_hog": {
+    "G-1/P0": {
+      "yelek": true,
+      "yon_enerjisi": {
+        "10.0": 0.211,
+        "30.0": 0.121,
+        "50.0": 0.098,
+        "70.0": 0.09,
+        "90.0": 0.114,
+        "110.0": 0.088,
+        "130.0": 0.076,
+        "150.0": 0.075,
+        "170.0": 0.127
+      }
+    }
+  }
+}

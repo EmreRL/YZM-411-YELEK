@@ -1,0 +1,557 @@
+{
+  "_meta": {
+    "durum": "Kutular data/docs/kutu-cizer.ipynb ile HAM görüntülerde çizildi; hazirlik.etiketleri_aktar() aynı ölçekle 1024 px görüntüye taşıdı (data/image_sizes.csv).",
+    "selection_rule": "DOLDURULACAK (ör. gövdesi en büyük ve tamamen görünen kişi). Bütün görüntülerde aynı kural (3a).",
+    "torso_rule": "Gövde kutusu omuzdan bele elle çizilir. Kişi kutusundan türetilirse: yükseklikte %20–55, genişlikte %15–85 (3c); her görüntüde gözle kontrol.",
+    "class_codes": {
+      "0": "Yelek giyili",
+      "1": "Yelek var, giyili değil",
+      "2": "Yelek yok",
+      "3": "Belirsiz"
+    },
+    "tpfpfn_ids": [],
+    "tpfpfn_secim_olcutu": "DOLDURULACAK — 5f: yalnız altı kontrol görüntüsü. Yöntemler çalışmadan önce seçilir (ör. 2b koşullarının her birinden bir görüntü).",
+    "kutu_bicimi": "x1, y1, x2, y2; piksel; başlangıç sol üst köşe; data/images_1024 görüntüsüne göre",
+    "aktarim": "worn_by: sınıf 'Yelek giyili' ise seçilen kişinin gövdesiyle en çok örtüşen yelek o kişiye atanır (vest=true); diğer yelekler worn_by=null (kimse giymiyor)."
+  },
+  "G-1": {
+    "split": "geliştirme",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En önde duran adamı seçtik çünkü yeleği ve kendisi en görünür kişi o",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          233,
+          106,
+          479,
+          358
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          267,
+          123,
+          465,
+          358
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "G-2": {
+    "split": "geliştirme",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En önde duran birey en net ve normal ışığı alan görüntüye sahipti",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          412,
+          91,
+          582,
+          327
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          418,
+          102,
+          576,
+          327
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "G-3": {
+    "split": "geliştirme",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En öndeki en net görüntüye sahip ve turuncu koninin yanındaki kişi seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          324,
+          103,
+          512,
+          345
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          337,
+          106,
+          480,
+          307
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "G-4": {
+    "split": "geliştirme",
+    "class": "Yelek yok",
+    "selected": 0,
+    "secim_gerekcesi": "Sağdaki kişi kıyafetine daha çok ışık geldiği için seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          186,
+          429,
+          413,
+          683
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [],
+    "note": ""
+  },
+  "G-5": {
+    "split": "geliştirme",
+    "class": "Yelek yok",
+    "selected": 0,
+    "secim_gerekcesi": "Tek kişi olduğundan ötürü fotoğraftaki kişi seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          185,
+          483,
+          786,
+          1023
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [],
+    "note": ""
+  },
+  "G-6": {
+    "split": "geliştirme",
+    "class": "Yelek var, giyili değil",
+    "selected": 0,
+    "secim_gerekcesi": "Tek kişi olmasından ötürü tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          672,
+          207,
+          863,
+          388
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          114,
+          137,
+          281,
+          511
+        ],
+        "worn_by": null
+      }
+    ],
+    "note": ""
+  },
+  "G-7": {
+    "split": "geliştirme",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "Tek kişi olması sebebiyle fotoğraftaki kişi tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          294,
+          150,
+          888,
+          576
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          297,
+          250,
+          726,
+          576
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "G-8": {
+    "split": "geliştirme",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En uzaktaki turuncu yelekli işçi tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          400,
+          238,
+          431,
+          274
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          401,
+          239,
+          429,
+          272
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "K-1": {
+    "split": "kontrol",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En önde duran adam normal ışıkta en net görünüme sahip olduğu için seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          244,
+          198,
+          350,
+          347
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          251,
+          200,
+          340,
+          319
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "K-2": {
+    "split": "kontrol",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "Tek kişi olması nedeniyle fotoğraftaki birey tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          132,
+          320,
+          523,
+          890
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          166,
+          324,
+          498,
+          867
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "K-3": {
+    "split": "kontrol",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En öndeki kişi en net görüntüye sahip olması nedeniyle tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          399,
+          146,
+          706,
+          576
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          414,
+          151,
+          647,
+          480
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "K-4": {
+    "split": "kontrol",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "En uzakta duran insan tek kişi olması nedeniyle tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          332,
+          80,
+          369,
+          122
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          335,
+          82,
+          366,
+          117
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "K-5": {
+    "split": "kontrol",
+    "class": "Yelek yok",
+    "selected": 0,
+    "secim_gerekcesi": "Turuncu koninin yanındaki insan en net görüntüye sahip olması nedeniyle seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          440,
+          123,
+          602,
+          352
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [],
+    "note": ""
+  },
+  "K-6": {
+    "split": "kontrol",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "Fotoğraftaki tek kişi olması ve en önde olması nedeniyle tercih edilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          97,
+          241,
+          381,
+          398
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          114,
+          248,
+          326,
+          394
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  },
+  "K-7": {
+    "split": "kontrol",
+    "class": "Yelek yok",
+    "selected": 0,
+    "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          221,
+          364,
+          783,
+          852
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [],
+    "note": ""
+  },
+  "K-8": {
+    "split": "kontrol",
+    "class": "Yelek yok",
+    "selected": 0,
+    "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          111,
+          170,
+          427,
+          352
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [],
+    "note": ""
+  },
+  "K-9": {
+    "split": "kontrol",
+    "class": "Yelek var, giyili değil",
+    "selected": 0,
+    "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          534,
+          217,
+          733,
+          476
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          356,
+          371,
+          561,
+          626
+        ],
+        "worn_by": null
+      }
+    ],
+    "note": ""
+  },
+  "K-10": {
+    "split": "kontrol",
+    "class": "Yelek var, giyili değil",
+    "selected": 0,
+    "secim_gerekcesi": "Yeleği tutan kişi olması nedeniyle sağ taraftaki insan seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          632,
+          108,
+          823,
+          334
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          600,
+          240,
+          707,
+          480
+        ],
+        "worn_by": null
+      }
+    ],
+    "note": ""
+  },
+  "K-11": {
+    "split": "kontrol",
+    "class": "Yelek yok",
+    "selected": 0,
+    "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          135,
+          160,
+          600,
+          400
+        ],
+        "vest": false
+      }
+    ],
+    "vests": [],
+    "note": ""
+  },
+  "K-12": {
+    "split": "kontrol",
+    "class": "Yelek giyili",
+    "selected": 0,
+    "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir",
+    "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)",
+    "persons": [
+      {
+        "torso": [
+          273,
+          59,
+          611,
+          216
+        ],
+        "vest": true
+      }
+    ],
+    "vests": [
+      {
+        "box": [
+          393,
+          67,
+          512,
+          197
+        ],
+        "worn_by": 0
+      }
+    ],
+    "note": ""
+  }
+}

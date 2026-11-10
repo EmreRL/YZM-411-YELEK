@@ -1,0 +1,246 @@
+{
+  "K_1.jpg": {
+    "genislik": 1280,
+    "yukseklik": 720,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 305,
+        "y1": 247,
+        "x2": 438,
+        "y2": 434,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 314,
+        "y1": 250,
+        "x2": 425,
+        "y2": 399,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_10.jpeg": {
+    "genislik": 1024,
+    "yukseklik": 572,
+    "dogru_sinif": "Yelek var, giyili değil",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 632,
+        "y1": 108,
+        "x2": 823,
+        "y2": 334,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 600,
+        "y1": 240,
+        "x2": 707,
+        "y2": 480,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_11.jpg": {
+    "genislik": 600,
+    "yukseklik": 400,
+    "dogru_sinif": "Yelek yok",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 135,
+        "y1": 160,
+        "x2": 600,
+        "y2": 400,
+        "secilen_kisi": true
+      }
+    ]
+  },
+  "K_12.jpeg": {
+    "genislik": 1280,
+    "yukseklik": 720,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 341,
+        "y1": 74,
+        "x2": 764,
+        "y2": 270,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 491,
+        "y1": 84,
+        "x2": 640,
+        "y2": 246,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_2.jpg": {
+    "genislik": 1066,
+    "yukseklik": 1600,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 206,
+        "y1": 500,
+        "x2": 818,
+        "y2": 1390,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 260,
+        "y1": 506,
+        "x2": 779,
+        "y2": 1354,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_3.jpg": {
+    "genislik": 1280,
+    "yukseklik": 720,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 499,
+        "y1": 183,
+        "x2": 882,
+        "y2": 720,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 518,
+        "y1": 189,
+        "x2": 809,
+        "y2": 600,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_4.jpg": {
+    "genislik": 500,
+    "yukseklik": 329,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 332,
+        "y1": 80,
+        "x2": 369,
+        "y2": 122,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 335,
+        "y1": 82,
+        "x2": 366,
+        "y2": 117,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_5.jpeg": {
+    "genislik": 1024,
+    "yukseklik": 572,
+    "dogru_sinif": "Yelek yok",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 440,
+        "y1": 123,
+        "x2": 602,
+        "y2": 352,
+        "secilen_kisi": true
+      }
+    ]
+  },
+  "K_6.jpg": {
+    "genislik": 600,
+    "yukseklik": 420,
+    "dogru_sinif": "Yelek giyili",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 97,
+        "y1": 241,
+        "x2": 381,
+        "y2": 398,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 114,
+        "y1": 248,
+        "x2": 326,
+        "y2": 394,
+        "secilen_kisi": false
+      }
+    ]
+  },
+  "K_7.jpg": {
+    "genislik": 1024,
+    "yukseklik": 855,
+    "dogru_sinif": "Yelek yok",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 221,
+        "y1": 364,
+        "x2": 783,
+        "y2": 852,
+        "secilen_kisi": true
+      }
+    ]
+  },
+  "K_8.jpg": {
+    "genislik": 480,
+    "yukseklik": 352,
+    "dogru_sinif": "Yelek yok",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 111,
+        "y1": 170,
+        "x2": 427,
+        "y2": 352,
+        "secilen_kisi": true
+      }
+    ]
+  },
+  "K_9.jpeg": {
+    "genislik": 1024,
+    "yukseklik": 765,
+    "dogru_sinif": "Yelek var, giyili değil",
+    "kutular": [
+      {
+        "etiket": "govde",
+        "x1": 534,
+        "y1": 217,
+        "x2": 733,
+        "y2": 476,
+        "secilen_kisi": true
+      },
+      {
+        "etiket": "yelek",
+        "x1": 356,
+        "y1": 371,
+        "x2": 561,
+        "y2": 626,
+        "secilen_kisi": false
+      }
+    ]
+  }
+}

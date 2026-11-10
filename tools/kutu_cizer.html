@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yelek Kutu Çizer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+[hidden]{display:none!important} img{max-width:100%} body{margin:0}
+/* Düzen: solda görüntü listesi, ortada tuval, sağda seçilen görüntünün etiket paneli (dar ekranda alt alta) */
+:root {
+  --bg: #eef2f3;
+  --panel: #ffffff;
+  --ink: #15212a;
+  --muted: #5a6872;
+  --line: #d3dbdf;
+  --hivis: #d6f01e;
+  --hivis-ink: #1b2400;
+  --torso: #1f6fd1;
+  --vest: #148a42;
+  --warn: #a8480b;
+  --warn-bg: #fff2e5;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1418; --panel: #162028; --ink: #e4ebee; --muted: #93a2ab; --line: #2a3742;
+    --hivis: #cfe81c; --hivis-ink: #182000; --torso: #5ea2ff; --vest: #3ccf74;
+    --warn: #f3a45c; --warn-bg: #2d1f12; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1418; --panel: #162028; --ink: #e4ebee; --muted: #93a2ab; --line: #2a3742;
+  --hivis: #cfe81c; --hivis-ink: #182000; --torso: #5ea2ff; --vest: #3ccf74;
+  --warn: #f3a45c; --warn-bg: #2d1f12; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--sans); }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 14px 28px; display: grid; gap: 12px; }
+header.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+header.top h1 { font-size: 18px; font-weight: 600; margin: 0; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+.stripe { width: 22px; height: 14px; border-radius: 2px; background: linear-gradient(var(--hivis) 0 35%, #c9ced1 35% 50%, var(--hivis) 50% 65%, #c9ced1 65% 80%, var(--hivis) 80%); }
+.sub { color: var(--muted); font-size: 13px; }
+.spacer { flex: 1; }
+button, .btn { font: 500 13px var(--sans); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 6px 11px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+button:hover, .btn:hover { border-color: var(--muted); }
+button:focus-visible, .btn:focus-within, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--torso); outline-offset: 1px; }
+button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.btn { position: relative; }
+kbd { font: 500 11px var(--mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; color: var(--muted); }
+
+.grid { display: grid; grid-template-columns: 210px minmax(0, 1fr) 340px; gap: 12px; align-items: start; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+.list { padding: 6px; display: grid; gap: 2px; max-height: calc(100vh - 120px); overflow: auto; }
+.list h3 { font: 600 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 8px 6px 4px; }
+.item { display: grid; grid-template-columns: 42px 1fr auto; gap: 6px; align-items: center; padding: 6px 8px; border-radius: 4px; cursor: pointer; border: 1px solid transparent; background: none; text-align: left; width: 100%; font: inherit; color: inherit; }
+.item:hover { background: var(--bg); }
+.item.on { background: var(--hivis); color: var(--hivis-ink); }
+.item .id { font: 500 13px var(--mono); }
+.item .meta { font-size: 12px; color: inherit; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dot.ok { background: var(--vest); }
+.dot.bad { background: var(--warn); }
+
+.stage { padding: 10px; display: grid; gap: 8px; min-width: 0; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.mode-torso[aria-pressed="true"] { background: var(--torso) !important; color: #fff !important; }
+.mode-vest[aria-pressed="true"] { background: var(--vest) !important; color: #fff !important; }
+.canvas-box { overflow: auto; max-height: calc(100vh - 170px); border-radius: 4px; background: repeating-conic-gradient(var(--bg) 0 25%, var(--panel) 0 50%) 0 0/16px 16px; }
+canvas { display: block; cursor: crosshair; touch-action: none; }
+.coords { font: 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.side { padding: 12px; display: grid; gap: 14px; min-width: 0; }
+.side h2 { margin: 0; font: 600 20px var(--mono); display: flex; gap: 8px; align-items: baseline; }
+.side h2 small { font: 400 12px var(--sans); color: var(--muted); }
+.field { display: grid; gap: 4px; }
+.field > label, .lbl { font: 600 11px var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+select, input[type=text], input[type=number], textarea { font: 13px var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; width: 100%; min-width: 0; }
+textarea { resize: vertical; min-height: 44px; }
+.rows { display: grid; gap: 6px; }
+.row { display: grid; grid-template-columns: auto 1fr auto; gap: 6px 8px; align-items: center; padding: 8px; border: 1px solid var(--line); border-radius: 4px; }
+.row.active { border-color: var(--ink); box-shadow: inset 3px 0 0 var(--ink); }
+.row .tag { font: 600 12px var(--mono); padding: 1px 6px; border-radius: 3px; color: #fff; }
+.tag.t { background: var(--torso); } .tag.v { background: var(--vest); }
+.row .box4 { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.row .box4 input { font: 12px var(--mono); padding: 4px; text-align: right; font-variant-numeric: tabular-nums; }
+.row .opts { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font-size: 13px; }
+.row .opts select { width: auto; padding: 3px 6px; }
+.chip { font: 500 11px var(--sans); padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.chip.vestc { border-color: var(--vest); color: var(--vest); }
+.x { border: 0; background: none; color: var(--muted); padding: 2px 6px; }
+.x:hover { color: var(--warn); }
+.empty { color: var(--muted); font-size: 13px; }
+.warns { display: grid; gap: 4px; }
+.warn { background: var(--warn-bg); color: var(--warn); border-radius: 4px; padding: 6px 8px; font-size: 13px; }
+.okmsg { color: var(--vest); font-size: 13px; }
+details { border-top: 1px solid var(--line); padding-top: 10px; }
+summary { cursor: pointer; font-weight: 600; font-size: 13px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.export { padding: 12px; display: grid; gap: 8px; }
+.export textarea { font: 12px var(--mono); min-height: 160px; }
+.toast { min-height: 20px; font-size: 13px; color: var(--muted); }
+.help { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+
+@media (max-width: 1150px) {
+  .grid { grid-template-columns: minmax(0, 1fr) 320px; }
+  .list { grid-column: 1 / -1; display: flex; flex-wrap: nowrap; overflow-x: auto; max-height: none; }
+  .list h3 { display: none; }
+  .item { grid-template-columns: auto auto; width: auto; flex: 0 0 auto; }
+  .item .meta { display: none; }
+}
+@media (max-width: 760px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .canvas-box { max-height: 70vh; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><span class="stripe" aria-hidden="true"></span>Yelek Kutu Çizer</h1>
+    <span class="sub">YZM 411 · gövde ve yelek kutuları → <code>data/gt.json</code> · koordinatlar 1024 px görüntüde, x1,y1,x2,y2</span>
+    <span class="spacer"></span>
+    <label class="btn" for="fImgs">Görüntüleri seç<input id="fImgs" type="file" accept="image/*" multiple></label>
+    <label class="btn" for="fGt">gt.json yükle<input id="fGt" type="file" accept=".json,application/json"></label>
+    <label class="btn" for="fMerge">Birleştir<input id="fMerge" type="file" accept=".json,application/json" multiple></label>
+    <button id="bExport" class="primary" type="button">Dışa aktar</button>
+  </header>
+
+  <div class="grid">
+    <nav class="card list" id="list" aria-label="Görüntüler"></nav>
+
+    <section class="card stage">
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Çizim kipi">
+          <button type="button" class="mode-torso" data-mode="torso" aria-pressed="true">Gövde <kbd>G</kbd></button>
+          <button type="button" class="mode-vest" data-mode="vest" aria-pressed="false">Yelek <kbd>Y</kbd></button>
+          <button type="button" data-mode="person" aria-pressed="false">Kişi → gövde <kbd>K</kbd></button>
+        </div>
+        <div class="seg" role="group" aria-label="Yakınlaştırma">
+          <button type="button" data-zoom="1" aria-pressed="true">1×</button>
+          <button type="button" data-zoom="2" aria-pressed="false">2×</button>
+          <button type="button" data-zoom="3" aria-pressed="false">3×</button>
+        </div>
+        <button type="button" id="bPrev" aria-label="Önceki görüntü">← </button>
+        <button type="button" id="bNext" aria-label="Sonraki görüntü"> →</button>
+        <button type="button" id="bUndo">Geri al <kbd>Ctrl Z</kbd></button>
+        <span class="spacer"></span>
+        <span class="coords" id="coords">x —, y —</span>
+      </div>
+      <div class="canvas-box" id="cbox"><canvas id="cv" width="640" height="420"></canvas></div>
+      <div class="help">
+        <span>Sürükle: kutu çiz</span><span>Tıkla: kutuyu seç</span><span><kbd>Del</kbd> seçili kutuyu sil</span>
+        <span><kbd>←</kbd><kbd>→</kbd> görüntü</span><span>Yelek, merkezi bir gövdenin içindeyse o kişiye atanır; listeden değiştirilebilir.</span>
+      </div>
+    </section>
+
+    <aside class="card side" id="side"></aside>
+  </div>
+
+  <section class="card export" id="exportBox" hidden>
+    <div class="toolbar">
+      <strong>gt.json</strong>
+      <span class="spacer"></span>
+      <button type="button" id="bCopy" class="primary">Kopyala</button>
+      <button type="button" id="bDl">gt.json olarak kaydet</button>
+      <button type="button" id="bClose">Kapat</button>
+    </div>
+    <div class="toast" id="exportMsg">Kaydedin ya da kopyalayın; Drive'daki proje klasöründe <code>data/gt.json</code> dosyasının yerine koyun.</div>
+    <textarea id="exportTa" readonly spellcheck="false" aria-label="gt.json içeriği"></textarea>
+  </section>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+const TEMPLATE = {"_meta": {"durum": "TASLAK — sınıflar etiket belgesinden alındı; kutular henüz çizilmedi. Kutular tools/kutu_cizer.html ile 1024px görüntülerde çizilir.", "selection_rule": "DOLDURULACAK (ör. gövdesi en büyük ve tamamen görünen kişi). Bütün görüntülerde aynı kural (3a).", "torso_rule": "Gövde kutusu omuzdan bele elle çizilir. Kişi kutusundan türetilirse: yükseklikte %20–55, genişlikte %15–85 (3c); her görüntüde gözle kontrol.", "class_codes": {"0": "Yelek giyili", "1": "Yelek var, giyili değil", "2": "Yelek yok", "3": "Belirsiz"}, "tpfpfn_ids": [], "tpfpfn_secim_olcutu": "DOLDURULACAK — 5f: yalnız altı kontrol görüntüsü. Yöntemler çalışmadan önce seçilir (ör. 2b koşullarının her birinden bir görüntü).", "kutu_bicimi": "x1, y1, x2, y2; piksel; başlangıç sol üst köşe; 1024px küçültülmüş görüntüye göre"}, "G-1": {"split": "geliştirme", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En önde duran adamı seçtik çünkü yeleği ve kendisi en görünür kişi o", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-2": {"split": "geliştirme", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En önde duran birey en net ve normal ışığı alan görüntüye sahipti", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-3": {"split": "geliştirme", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En öndeki en net görüntüye sahip ve turuncu koninin yanındaki kişi seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-4": {"split": "geliştirme", "class": "Yelek yok", "selected": null, "secim_gerekcesi": "Sağdaki kişi kıyafetine daha çok ışık geldiği için seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-5": {"split": "geliştirme", "class": "Yelek yok", "selected": null, "secim_gerekcesi": "Tek kişi olduğundan ötürü fotoğraftaki kişi seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-6": {"split": "geliştirme", "class": "Yelek var, giyili değil", "selected": null, "secim_gerekcesi": "Tek kişi olmasından ötürü tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-7": {"split": "geliştirme", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "Tek kişi olması sebebiyle fotoğraftaki kişi tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "G-8": {"split": "geliştirme", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En uzaktaki turuncu yelekli işçi tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-1": {"split": "kontrol", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En önde duran adam normal ışıkta en net görünüme sahip olduğu için seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-2": {"split": "kontrol", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "Tek kişi olması nedeniyle fotoğraftaki birey tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-3": {"split": "kontrol", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En öndeki kişi en net görüntüye sahip olması nedeniyle tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-4": {"split": "kontrol", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "En uzakta duran insan tek kişi olması nedeniyle tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-5": {"split": "kontrol", "class": "Yelek yok", "selected": null, "secim_gerekcesi": "Turuncu koninin yanındaki insan en net görüntüye sahip olması nedeniyle seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-6": {"split": "kontrol", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "Fotoğraftaki tek kişi olması ve en önde olması nedeniyle tercih edilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-7": {"split": "kontrol", "class": "Yelek yok", "selected": null, "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-8": {"split": "kontrol", "class": "Yelek yok", "selected": null, "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-9": {"split": "kontrol", "class": "Yelek var, giyili değil", "selected": null, "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-10": {"split": "kontrol", "class": "Yelek var, giyili değil", "selected": null, "secim_gerekcesi": "Yeleği tutan kişi olması nedeniyle sağ taraftaki insan seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-11": {"split": "kontrol", "class": "Yelek yok", "selected": null, "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}, "K-12": {"split": "kontrol", "class": "Yelek giyili", "selected": null, "secim_gerekcesi": "Fotoğraftaki tek kişi olması nedeniyle seçilmiştir", "serit": "DOLDURULACAK: görünür / görünmüyor / kısmen (3b)", "persons": [], "vests": [], "note": ""}};
+const CLASSES = ['Yelek giyili', 'Yelek var, giyili değil', 'Yelek yok', 'Belirsiz'];
+const SHORT = { 'Yelek giyili': 'giyili', 'Yelek var, giyili değil': 'giyilmemiş', 'Yelek yok': 'yok', 'Belirsiz': 'belirsiz' };
+const SERIT = ['görünür', 'kısmen', 'görünmüyor'];
+const KEY = 'yelek-kutu-cizer-v1';
+const $ = (s) => document.querySelector(s);
+const cv = $('#cv'), ctx = cv.getContext('2d');
+
+let gt = clone(TEMPLATE), imgs = {}, cur = 'G-1', mode = 'torso', zoom = 1, hist = [];
+let active = null;          // {kind:'p'|'v', i}
+let drag = null;            // {x0,y0,x1,y1}
+
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+function ids() {
+  return Object.keys(gt).filter(k => !k.startsWith('_')).sort((a, b) =>
+    (a[0] === b[0] ? 0 : a[0] === 'G' ? -1 : 1) || (+a.split('-')[1] - +b.split('-')[1]));
+}
+function meta() {
+  gt._meta = gt._meta || {};
+  const m = gt._meta;
+  if (!m.torso_derive) m.torso_derive = { h: [0.20, 0.55], w: [0.15, 0.85] };
+  if (!Array.isArray(m.tpfpfn_ids)) m.tpfpfn_ids = [];
+  return m;
+}
+function norm(e) {
+  e.persons = (e.persons || []).map(p => ({ ...p, torso: p.torso || null }));
+  e.vests = (e.vests || []).map(v => Array.isArray(v) ? { box: v, worn_by: null } : { box: v.box, worn_by: v.worn_by ?? null });
+  sync(e);
+  return e;
+}
+function sync(e) { e.persons.forEach((p, i) => { p.vest = e.vests.some(v => v.worn_by === i); }); }
+function E() { return gt[cur]; }
+function normAll() { meta(); ids().forEach(k => norm(gt[k])); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(gt)); } catch (e) {} }
+function snap() { hist.push(JSON.stringify(gt)); if (hist.length > 60) hist.shift(); }
+function changed(rebuild = true) { save(); if (rebuild) { renderList(); renderSide(); } draw(); }
+function toast(t) { $('#toast').textContent = t; }
+
+// ---------------------------------------------------------------- doğrulama (src/common.validate_gt ile aynı kurallar)
+function problems(id) {
+  const e = gt[id], out = [], im = imgs[id];
+  const P = e.persons || [], sel = e.selected;
+  if (!P.length) out.push('Kişi yok (2b: her görüntüde en az bir kişi).');
+  if ((sel === null || sel === undefined || sel >= P.length) && e.class !== 'Belirsiz') out.push('Seçilen kişi yok.');
+  const sp = P[sel];
+  if (sp && !sp.torso && e.class !== 'Belirsiz') out.push('Seçilen kişinin gövde kutusu yok; karar için kanıt yoksa sınıf "Belirsiz" olmalı (3d).');
+  if (e.class === 'Yelek giyili' && sp && !sp.vest) out.push('Sınıf "Yelek giyili" ama seçilen kişiye atanmış yelek kutusu yok.');
+  const free = (e.vests || []).filter(v => v.worn_by === null);
+  if (e.class === 'Yelek var, giyili değil' && !free.length) out.push('Sınıf "Yelek var, giyili değil" ama giyilmeyen yelek kutusu yok.');
+  if (e.class === 'Yelek var, giyili değil' && sp && sp.vest) out.push('Seçilen kişi yelek giyiyor; sınıf "Yelek giyili" olmalı.');
+  if (e.class === 'Yelek yok' && free.length) out.push('Sınıf "Yelek yok" ama görüntüde giyilmeyen yelek kutusu var.');
+  if (e.class === 'Yelek yok' && sp && sp.vest) out.push('Sınıf "Yelek yok" ama seçilen kişiye yelek atanmış.');
+  if (e.class === 'Yelek giyili' && !SERIT.includes(e.serit)) out.push('Şerit görünürlüğünü seçin (3b).');
+  if (im) {
+    if (Math.max(im.w, im.h) > 1024) out.push(`Görüntü ${im.w}×${im.h}: uzun kenar 1024'ü geçiyor. Önce hazirlik.goruntuleri_hazirla() ile küçültün (data/images_1024).`);
+    const boxes = [...P.map((p, i) => ['P' + i, p.torso]), ...(e.vests || []).map((v, j) => ['Y' + j, v.box])];
+    boxes.forEach(([n, b]) => { if (b && (b[0] < 0 || b[1] < 0 || b[2] > im.w || b[3] > im.h)) out.push(`${n} görüntü dışına taşıyor.`); });
+  }
+  return out;
+}
+function hasBoxes(id) { const e = gt[id]; return (e.persons || []).length > 0; }
+
+// ---------------------------------------------------------------- liste
+function renderList() {
+  const L = $('#list');
+  let html = '';
+  ids().forEach((id, k) => {
+    if (k === 0) html += '<h3>Geliştirme</h3>';
+    if (id === 'K-1') html += '<h3>Kontrol</h3>';
+    const e = gt[id], pr = problems(id);
+    const st = !hasBoxes(id) ? '' : pr.length ? 'bad' : 'ok';
+    const n = `${(e.persons || []).length}G · ${(e.vests || []).length}Y`;
+    html += `<button type="button" class="item${id === cur ? ' on' : ''}" data-id="${id}" title="${pr.join(' ') || 'tamam'}">
+      <span class="id">${id}</span><span class="meta">${SHORT[e.class] || '?'} · ${n}${imgs[id] ? '' : ' · görüntü yok'}</span><span class="dot ${st}"></span></button>`;
+  });
+  L.innerHTML = html;
+}
+$('#list').addEventListener('click', ev => { const b = ev.target.closest('.item'); if (b) go(b.dataset.id); });
+function go(id) { cur = id; active = null; renderList(); renderSide(); fit(); draw(); }
+
+// ---------------------------------------------------------------- sağ panel
+function boxInputs(kind, i, b) {
+  const names = ['x1', 'y1', 'x2', 'y2'];
+  return `<div class="box4">${(b || [null, null, null, null]).map((v, k) =>
+    `<input type="number" id="${kind}${i}_${k}" aria-label="${names[k]}" data-k="${kind}" data-i="${i}" data-c="${k}" value="${v ?? ''}" placeholder="${names[k]}">`).join('')}</div>`;
+}
+function renderSide() {
+  const e = E(), m = meta(), isK = cur.startsWith('K');
+  const P = e.persons, V = e.vests, pr = problems(cur);
+  const owner = (j) => `<select data-own="${j}" aria-label="Y${j} kimin"><option value="">kimse (giyilmiyor)</option>${P.map((_, i) => `<option value="${i}"${V[j].worn_by === i ? ' selected' : ''}>P${i}</option>`).join('')}</select>`;
+  $('#side').innerHTML = `
+    <h2>${cur} <small>${e.split || ''}${imgs[cur] ? ` · ${imgs[cur].w}×${imgs[cur].h} · ${imgs[cur].name}` : ' · görüntü yüklenmedi'}</small></h2>
+    <div class="field"><label for="fClass">Doğru sınıf (3a)</label>
+      <select id="fClass">${CLASSES.map(c => `<option${c === e.class ? ' selected' : ''}>${c}</option>`).join('')}</select></div>
+    <div class="field"><label for="fSerit">Şerit görünürlüğü (3b)</label>
+      <select id="fSerit"><option value="">— seçin —</option>${SERIT.map(s => `<option${s === e.serit ? ' selected' : ''}>${s}</option>`).join('')}</select></div>
+    <div class="field"><span class="lbl">Kişiler — gövde kutusu omuzdan bele</span>
+      <div class="rows">${P.length ? P.map((p, i) => `
+        <div class="row${active && active.kind === 'p' && active.i === i ? ' active' : ''}" data-row="p${i}">
+          <span class="tag t">P${i}</span>
+          <span class="opts"><label><input type="radio" name="sel" value="${i}"${e.selected === i ? ' checked' : ''}> seçilen kişi</label>
+            ${p.vest ? '<span class="chip vestc">yelekli</span>' : '<span class="chip">yeleksiz</span>'}
+            ${p.person ? '<span class="chip">kişi kutusundan türetildi</span>' : ''}</span>
+          <button type="button" class="x" data-del="p${i}" aria-label="P${i} sil">sil</button>
+          ${boxInputs('p', i, p.torso)}
+        </div>`).join('') : '<p class="empty">Henüz kişi yok. <kbd>G</kbd> ile gövde kutusu çizin.</p>'}</div></div>
+    <div class="field"><span class="lbl">Yelekler — bütün yelekler, giyilmeyenler dahil</span>
+      <div class="rows">${V.length ? V.map((v, j) => `
+        <div class="row${active && active.kind === 'v' && active.i === j ? ' active' : ''}" data-row="v${j}">
+          <span class="tag v">Y${j}</span>
+          <span class="opts">giyen: ${owner(j)}</span>
+          <button type="button" class="x" data-del="v${j}" aria-label="Y${j} sil">sil</button>
+          ${boxInputs('v', j, v.box)}
+        </div>`).join('') : '<p class="empty">Yelek kutusu yok. <kbd>Y</kbd> ile çizin.</p>'}</div></div>
+    ${isK ? `<label class="opts"><input type="checkbox" id="fCount"${m.tpfpfn_ids.includes(cur) ? ' checked' : ''}> TP/FP/FN sayımına dahil (5f) — seçili: ${m.tpfpfn_ids.length}/6</label>` : ''}
+    <div class="field"><label for="fWhy">Kişi seçim gerekçesi</label><textarea id="fWhy" rows="2">${esc(e.secim_gerekcesi || '')}</textarea></div>
+    <div class="field"><label for="fNote">Not (şerit görülemiyorsa karar ve gerekçe, düzeltilen kutular)</label><textarea id="fNote" rows="2">${esc(e.note || '')}</textarea></div>
+    <div class="warns">${pr.length ? pr.map(t => `<div class="warn">${t}</div>`).join('') : (P.length ? '<div class="okmsg">Bu görüntüde sorun yok.</div>' : '')}</div>
+    <details><summary>Ortak kurallar (_meta)</summary>
+      <div class="field" style="margin-top:8px"><label for="mSel">Kişi seçme ölçütü (3a, bütün görüntülerde aynı)</label><textarea id="mSel" rows="2">${esc(m.selection_rule || '')}</textarea></div>
+      <div class="field"><span class="lbl">Kişi kutusundan gövde türetme (3c)</span>
+        <div class="pair"><label class="sub">yükseklik %<input type="text" id="mH" value="${m.torso_derive.h.map(x => Math.round(x * 100)).join('–')}"></label>
+        <label class="sub">genişlik %<input type="text" id="mW" value="${m.torso_derive.w.map(x => Math.round(x * 100)).join('–')}"></label></div></div>
+      <div class="field"><label for="mCount">5f altı görüntünün seçim ölçütü</label><textarea id="mCount" rows="2">${esc(m.tpfpfn_secim_olcutu || '')}</textarea></div>
+    </details>`;
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+$('#side').addEventListener('change', ev => {
+  const t = ev.target, e = E(), m = meta();
+  snap();
+  if (t.id === 'fClass') e.class = t.value;
+  else if (t.id === 'fSerit') e.serit = t.value;
+  else if (t.name === 'sel') e.selected = +t.value;
+  else if (t.dataset.own !== undefined) { e.vests[+t.dataset.own].worn_by = t.value === '' ? null : +t.value; sync(e); }
+  else if (t.dataset.k) {
+    const arr = t.dataset.k === 'p' ? e.persons[+t.dataset.i] : e.vests[+t.dataset.i];
+    const key = t.dataset.k === 'p' ? 'torso' : 'box';
+    const b = (arr[key] || [0, 0, 0, 0]).slice(); b[+t.dataset.c] = Math.round(+t.value); arr[key] = b;
+  }
+  else if (t.id === 'fCount') {
+    m.tpfpfn_ids = m.tpfpfn_ids.filter(x => x !== cur);
+    if (t.checked) m.tpfpfn_ids.push(cur);
+    if (m.tpfpfn_ids.length > 6) toast('5f altı görüntü diyor; şu an ' + m.tpfpfn_ids.length + ' seçili.');
+  }
+  else if (t.id === 'fWhy') e.secim_gerekcesi = t.value;
+  else if (t.id === 'fNote') e.note = t.value;
+  else if (t.id === 'mSel') m.selection_rule = t.value;
+  else if (t.id === 'mCount') m.tpfpfn_secim_olcutu = t.value;
+  else if (t.id === 'mH' || t.id === 'mW') {
+    const v = t.value.split(/[–\-, ]+/).map(Number).filter(n => !isNaN(n));
+    if (v.length === 2) { m.torso_derive[t.id === 'mH' ? 'h' : 'w'] = [v[0] / 100, v[1] / 100]; m.torso_rule = `Kişi kutusundan türetilirse: yükseklikte %${m.torso_derive.h.map(x => Math.round(x * 100)).join('–')}, genişlikte %${m.torso_derive.w.map(x => Math.round(x * 100)).join('–')} (3c); her görüntüde gözle kontrol.`; }
+  }
+  const textual = ['fWhy', 'fNote', 'mSel', 'mCount'].includes(t.id);
+  changed(!textual);
+  if (textual) renderList();
+});
+$('#side').addEventListener('click', ev => {
+  const d = ev.target.closest('[data-del]');
+  if (d) { del(d.dataset.del[0], +d.dataset.del.slice(1)); return; }
+  const r = ev.target.closest('[data-row]');
+  if (r && !ev.target.closest('input,select,button,label')) { active = { kind: r.dataset.row[0], i: +r.dataset.row.slice(1) }; renderSide(); draw(); }
+});
+function del(kind, i) {
+  const e = E(); snap();
+  if (kind === 'p') {
+    e.persons.splice(i, 1);
+    e.vests.forEach(v => { if (v.worn_by === i) v.worn_by = null; else if (v.worn_by > i) v.worn_by--; });
+    if (e.selected === i) e.selected = e.persons.length ? 0 : null; else if (e.selected > i) e.selected--;
+  } else e.vests.splice(i, 1);
+  sync(e); active = null; changed();
+}
+
+// ---------------------------------------------------------------- tuval
+function fit() {
+  const im = imgs[cur], box = $('#cbox');
+  const W = Math.max(200, box.clientWidth - 2);
+  if (!im) { cv.width = 640; cv.height = 420; cv.style.width = Math.min(W, 640) + 'px'; cv.style.height = 'auto'; return; }
+  cv.width = im.w; cv.height = im.h;
+  const s = Math.min(W / im.w, 1.6) * zoom;
+  cv.style.width = Math.round(im.w * s) + 'px'; cv.style.height = Math.round(im.h * s) + 'px';
+}
+function scale() { return cv.width / cv.getBoundingClientRect().width; }
+function draw() {
+  const im = imgs[cur];
+  if (!im) return placeholder();
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  ctx.drawImage(im.el, 0, 0);
+  const s = scale(), e = E(), lw = 2 * s;
+  ctx.font = `600 ${Math.round(12 * s)}px "IBM Plex Mono", monospace`;
+  ctx.textBaseline = 'bottom';
+  e.persons.forEach((p, i) => {
+    const on = active && active.kind === 'p' && active.i === i;
+    if (p.person) { ctx.setLineDash([6 * s, 4 * s]); ctx.strokeStyle = '#e8eef0'; ctx.lineWidth = s; rect(p.person); ctx.setLineDash([]); }
+    if (!p.torso) return;
+    ctx.strokeStyle = '#2f80ff'; ctx.lineWidth = (e.selected === i ? 3.5 : 2) * s * (on ? 1.6 : 1);
+    rect(p.torso);
+    label(p.torso, `P${i}${e.selected === i ? ' ★' : ''}${p.vest ? ' yelekli' : ''}`, '#2f80ff', s);
+  });
+  e.vests.forEach((v, j) => {
+    const on = active && active.kind === 'v' && active.i === j;
+    ctx.strokeStyle = '#1fd067'; ctx.lineWidth = lw * (on ? 1.6 : 1);
+    ctx.setLineDash(v.worn_by === null ? [8 * s, 4 * s] : []); rect(v.box); ctx.setLineDash([]);
+    label([v.box[0], v.box[3] + 16 * s, 0, 0], `Y${j} ${v.worn_by === null ? 'giyilmiyor' : '→ P' + v.worn_by}`, '#139a4a', s);
+  });
+  if (drag) {
+    ctx.strokeStyle = mode === 'vest' ? '#1fd067' : mode === 'torso' ? '#2f80ff' : '#e8eef0';
+    ctx.lineWidth = lw; ctx.setLineDash([4 * s, 3 * s]); rect(norm4(drag)); ctx.setLineDash([]);
+  }
+}
+function rect(b) { ctx.strokeRect(b[0], b[1], b[2] - b[0], b[3] - b[1]); }
+function label(b, t, c, s) {
+  const w = ctx.measureText(t).width + 8 * s, h = 16 * s, y = Math.max(h, b[1]);
+  ctx.fillStyle = c; ctx.fillRect(b[0], y - h, w, h);
+  ctx.fillStyle = '#fff'; ctx.fillText(t, b[0] + 4 * s, y - 2 * s);
+}
+function placeholder() {
+  const W = cv.width, H = cv.height;
+  ctx.fillStyle = '#7d8a88'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#6a7674'; ctx.fillRect(0, H * 0.62, W, H * 0.38);
+  // örnek işçi
+  ctx.fillStyle = '#d9b48f'; ctx.beginPath(); ctx.arc(250, 108, 22, 0, 7); ctx.fill();
+  ctx.fillStyle = '#34404a'; ctx.fillRect(222, 230, 22, 120); ctx.fillRect(256, 230, 22, 120);
+  ctx.fillStyle = '#f2632a'; ctx.fillRect(212, 136, 76, 96);
+  ctx.fillStyle = '#e6e9ea'; ctx.fillRect(212, 190, 76, 8); ctx.fillRect(212, 210, 76, 8);
+  // koni
+  ctx.fillStyle = '#f2632a'; ctx.beginPath(); ctx.moveTo(470, 330); ctx.lineTo(500, 230); ctx.lineTo(530, 330); ctx.fill();
+  ctx.fillStyle = '#e6e9ea'; ctx.fillRect(484, 278, 32, 8);
+  // örnek kutular
+  ctx.lineWidth = 3; ctx.strokeStyle = '#2f80ff'; ctx.strokeRect(208, 134, 84, 100);
+  ctx.strokeStyle = '#1fd067'; ctx.lineWidth = 2; ctx.strokeRect(214, 140, 72, 88);
+  ctx.font = '600 12px "IBM Plex Mono", monospace'; ctx.textBaseline = 'bottom';
+  label([208, 134], 'P0 ★ yelekli', '#2f80ff', 1);
+  label([214, 244], 'Y0 → P0', '#139a4a', 1);
+  ctx.fillStyle = 'rgba(14,20,24,.78)'; ctx.fillRect(0, H - 74, W, 74);
+  ctx.fillStyle = '#fff'; ctx.font = '600 15px "IBM Plex Sans", sans-serif';
+  ctx.fillText(`ÖRNEK — ${cur} için görüntü yüklenmedi`, 18, H - 44);
+  ctx.font = '13px "IBM Plex Sans", sans-serif';
+  ctx.fillText('"Görüntüleri seç" ile data/images_1024 içindeki PNG\'leri açın. Koni turuncu ama yelek değildir; kutusu çizilmez.', 18, H - 20);
+}
+function pt(ev) {
+  const r = cv.getBoundingClientRect(), s = cv.width / r.width;
+  const im = imgs[cur];
+  return [Math.max(0, Math.min(im.w, Math.round((ev.clientX - r.left) * s))), Math.max(0, Math.min(im.h, Math.round((ev.clientY - r.top) * s)))];
+}
+function norm4(d) { return [Math.min(d.x0, d.x1), Math.min(d.y0, d.y1), Math.max(d.x0, d.x1), Math.max(d.y0, d.y1)]; }
+cv.addEventListener('pointerdown', ev => {
+  if (!imgs[cur]) return;
+  const [x, y] = pt(ev); drag = { x0: x, y0: y, x1: x, y1: y }; cv.setPointerCapture(ev.pointerId);
+});
+cv.addEventListener('pointermove', ev => {
+  if (!imgs[cur]) return;
+  const [x, y] = pt(ev); $('#coords').textContent = `x ${x}, y ${y}`;
+  if (drag) { drag.x1 = x; drag.y1 = y; draw(); }
+});
+cv.addEventListener('pointerup', ev => {
+  if (!drag) return;
+  const b = norm4(drag); drag = null;
+  if (b[2] - b[0] < 3 || b[3] - b[1] < 3) { pick(b[0], b[1]); return; }
+  add(b);
+});
+function pick(x, y) {
+  const e = E(), hits = [];
+  e.persons.forEach((p, i) => { const t = p.torso; if (t && x >= t[0] && x <= t[2] && y >= t[1] && y <= t[3]) hits.push({ kind: 'p', i, a: (t[2] - t[0]) * (t[3] - t[1]) }); });
+  e.vests.forEach((v, j) => { const t = v.box; if (x >= t[0] && x <= t[2] && y >= t[1] && y <= t[3]) hits.push({ kind: 'v', i: j, a: (t[2] - t[0]) * (t[3] - t[1]) }); });
+  hits.sort((a, b) => a.a - b.a);
+  active = hits[0] || null; renderSide(); draw();
+}
+function add(b) {
+  const e = E(), m = meta(); snap();
+  if (mode === 'vest') {
+    const cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
+    const owner = e.persons.findIndex(p => p.torso && cx >= p.torso[0] && cx <= p.torso[2] && cy >= p.torso[1] && cy <= p.torso[3]);
+    e.vests.push({ box: b, worn_by: owner >= 0 ? owner : null });
+    active = { kind: 'v', i: e.vests.length - 1 };
+  } else {
+    let p;
+    if (mode === 'person') {
+      const w = b[2] - b[0], h = b[3] - b[1], R = m.torso_derive;
+      p = { person: b, torso: [Math.round(b[0] + R.w[0] * w), Math.round(b[1] + R.h[0] * h), Math.round(b[0] + R.w[1] * w), Math.round(b[1] + R.h[1] * h)], vest: false };
+    } else p = { torso: b, vest: false };
+    e.persons.push(p);
+    if (e.selected === null || e.selected === undefined) e.selected = 0;
+    active = { kind: 'p', i: e.persons.length - 1 };
+  }
+  sync(e); changed();
+}
+
+// ---------------------------------------------------------------- dosyalar
+$('#fImgs').addEventListener('change', async ev => {
+  const files = [...ev.target.files]; let n = 0; const skipped = [];
+  for (const f of files) {
+    const m = f.name.match(/^([GK])[-_ ]?(\d+)\./i);
+    if (!m) { skipped.push(f.name); continue; }
+    const id = `${m[1].toUpperCase()}-${+m[2]}`;
+    const url = URL.createObjectURL(f);
+    const el = new Image();
+    await new Promise(r => { el.onload = r; el.onerror = r; el.src = url; });
+    if (!el.naturalWidth) { skipped.push(f.name); continue; }
+    imgs[id] = { el, w: el.naturalWidth, h: el.naturalHeight, name: f.name };
+    if (!gt[id]) gt[id] = norm({ split: id[0] === 'G' ? 'geliştirme' : 'kontrol', class: 'Belirsiz', selected: null, persons: [], vests: [], note: '' });
+    n++;
+  }
+  toast(`${n} görüntü yüklendi.` + (skipped.length ? ` Adı tanınmayan: ${skipped.join(', ')}` : ''));
+  ev.target.value = ''; go(cur);
+});
+async function readJson(f) { return JSON.parse(await f.text()); }
+$('#fGt').addEventListener('change', async ev => {
+  const f = ev.target.files[0]; if (!f) return;
+  try { snap(); gt = await readJson(f); normAll(); changed(); go(ids()[0]); toast(`${f.name} yüklendi.`); }
+  catch (e) { toast(`${f.name} okunamadı: geçerli bir JSON değil.`); }
+  ev.target.value = '';
+});
+$('#fMerge').addEventListener('change', async ev => {
+  const got = [];
+  snap();
+  for (const f of ev.target.files) {
+    try {
+      const inc = await readJson(f);
+      Object.keys(inc).filter(k => !k.startsWith('_')).forEach(k => {
+        if ((inc[k].persons || []).length) { gt[k] = norm(clone(inc[k])); got.push(k); }
+      });
+      const im = (inc._meta || {}).tpfpfn_ids || [];
+      if (im.length && !meta().tpfpfn_ids.length) meta().tpfpfn_ids = im;
+    } catch (e) { toast(`${f.name} okunamadı.`); }
+  }
+  changed();
+  toast(got.length ? `Kutusu olan ${got.length} görüntü alındı: ${got.join(', ')}` : 'Birleştirilecek kutulu görüntü bulunamadı.');
+  ev.target.value = '';
+});
+function exportText() {
+  const out = clone(gt);
+  out._meta = { ...out._meta, durum: `kutular kutu_cizer ile çizildi · ${new Date().toISOString().slice(0, 16)}` };
+  return JSON.stringify(out, null, 2);
+}
+$('#bExport').addEventListener('click', () => {
+  $('#exportTa').value = exportText(); $('#exportBox').hidden = false;
+  const bad = ids().filter(id => hasBoxes(id) && problems(id).length), none = ids().filter(id => !hasBoxes(id));
+  $('#exportMsg').textContent = (none.length ? `Kutusuz: ${none.join(', ')}. ` : 'Bütün görüntülerde kutu var. ') +
+    (bad.length ? `Uyarılı: ${bad.join(', ')}. ` : '') + 'Kaydedip ya da kopyalayıp Drive\'daki proje klasöründe data/gt.json dosyasının yerine koyun.';
+  $('#exportBox').scrollIntoView({ block: 'nearest' });
+});
+$('#bClose').addEventListener('click', () => { $('#exportBox').hidden = true; });
+$('#bCopy').addEventListener('click', () => {
+  const ta = $('#exportTa');
+  navigator.clipboard.writeText(ta.value).then(() => toast('gt.json panoya kopyalandı.'))
+    .catch(() => { ta.focus(); ta.select(); toast('Kopyalama izni yok: metin seçildi, Ctrl+C ile kopyalayın.'); });
+});
+let DL = null;   // yayınlanan sayfada claude.ai'nin kaydetme penceresi; yerel dosyada normal indirme
+if (window.claude && window.claude.use) window.claude.use('downloads').then(d => { DL = d; }).catch(() => {});
+$('#bDl').addEventListener('click', async () => {
+  const text = exportText();
+  if (DL) {
+    try { await DL.save({ filename: 'gt.json', data: text }); toast('gt.json kaydedildi.'); }
+    catch (e) { toast(e && e.code === 'declined' ? 'Kaydetme iptal edildi.' : 'Bu görünümde kaydetme kullanılamıyor; Kopyala ile alın.'); }
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+  a.download = 'gt.json'; document.body.appendChild(a); a.click(); a.remove();
+  toast('gt.json indiriliyor.');
+});
+
+// ---------------------------------------------------------------- kipler, kısayollar
+document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+function setMode(m) { mode = m; document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m)); }
+document.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+  zoom = +b.dataset.zoom; document.querySelectorAll('[data-zoom]').forEach(x => x.setAttribute('aria-pressed', x === b)); fit(); draw();
+}));
+function step(d) { const L = ids(); go(L[(L.indexOf(cur) + d + L.length) % L.length]); }
+$('#bPrev').addEventListener('click', () => step(-1));
+$('#bNext').addEventListener('click', () => step(1));
+$('#bUndo').addEventListener('click', undo);
+function undo() { if (!hist.length) return toast('Geri alınacak bir şey yok.'); gt = JSON.parse(hist.pop()); normAll(); active = null; changed(); }
+document.addEventListener('keydown', ev => {
+  if (ev.target.closest('input,textarea,select')) return;
+  const k = ev.key.toLowerCase();
+  if ((ev.ctrlKey || ev.metaKey) && k === 'z') { ev.preventDefault(); undo(); }
+  else if (k === 'g') setMode('torso');
+  else if (k === 'y') setMode('vest');
+  else if (k === 'k') setMode('person');
+  else if (ev.key === 'ArrowRight') step(1);
+  else if (ev.key === 'ArrowLeft') step(-1);
+  else if ((ev.key === 'Delete' || ev.key === 'Backspace') && active) { ev.preventDefault(); del(active.kind, active.i); }
+});
+window.addEventListener('resize', () => { fit(); draw(); });
+
+// ---------------------------------------------------------------- başlangıç
+try { const d = localStorage.getItem(KEY); if (d) { gt = JSON.parse(d); toast('Bu tarayıcıdaki taslak geri yüklendi. Görüntüleri yeniden seçin.'); } } catch (e) {}
+normAll(); renderList(); renderSide(); fit();
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
+draw();
+</script>
+
+</body>
+</html>

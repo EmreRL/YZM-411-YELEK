@@ -1,0 +1,4 @@
+oran_testi,ransac_px,model,kp_A,kp_B,gecen_eslesme,ic_deger,kose_hatasi_px,kose_hatalari_px
+0.6,3.0,homography,188,141,64,60,0.12397204339504242,"[0.18, 0.05, 0.15, 0.11]"
+0.75,3.0,homography,188,141,73,64,0.4819289445877075,"[0.26, 0.33, 0.27, 1.07]"
+0.9,3.0,homography,188,141,102,68,0.5595974922180176,"[0.39, 0.34, 0.46, 1.05]"
