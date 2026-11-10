@@ -75,7 +75,7 @@ data/images_1024/  G-1.png … K-12.png (uzun kenar ≤ 1024, INTER_AREA) — ha
 data/image_sizes.csv  ham boyut → 1024 boyutu, ölçek
 data/sources.csv   id, ayırım, kaynak, lisans, atıf, koşul (H6, 10a) — 20 görüntünün hepsi
 data/gt.json       doğru sınıf, seçilen kişi, gövde ve yelek kutuları (x1,y1,x2,y2 piksel, 1024'lük görüntüde)
-data/docs/         sınıf/gövde belgesi, kutu-cizer.ipynb (etiketleme defteri)
+data/docs/         sınıf/gövde belgesi
 config/params.json dondurulmuş ayarlar
 predictions.md     tahminler (deneylerden önce kayıt, 4a)
 kayitlar/          tahmin ve dondurma kayıtları + kayit_defteri.csv (commit yerine)
@@ -87,7 +87,7 @@ notebooks/         A_…, B_…, C_…, D_…, E_D8_… (herkes yalnız kendi de
 main.ipynb         çalışan defter, baştan sona (10a)
 results/           csv'ler, maskeler, şekiller, final_table.csv / .md, experiments.csv (4b)
 scripts/           build_notebooks.py (defterleri üretir), prepare_images.py (hazirlik'in komut satırı hâli)
-tools/kutu_cizer.html   yedek kutu çizme aracı (tarayıcıda açılır)
+tools/kutu-cizer.ipynb   etiketleme defteri
 notes/             yarım sayfalık bireysel notlar (10d)
 AI_BEYANI.md       yapay zekâ beyanı (10e)
 ```
