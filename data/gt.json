@@ -1,7 +1,7 @@
 {
   "_meta": {
     "durum": "Kutular data/docs/kutu-cizer.ipynb ile HAM görüntülerde çizildi; hazirlik.etiketleri_aktar() aynı ölçekle 1024 px görüntüye taşıdı (data/image_sizes.csv).",
-    "selection_rule": "DOLDURULACAK (ör. gövdesi en büyük ve tamamen görünen kişi). Bütün görüntülerde aynı kural (3a).",
+        "selection_rule": "Görüntüde birden fazla kişi varsa en önde duran ve gövdesi en net görünen kişi seçilir; tek kişi varsa o kişi. 'Yelek var, giyili değil' görüntülerinde yeleğe en yakın / yeleği tutan kişi. Kural bütün görüntülerde aynıdır (3a).",
     "torso_rule": "Gövde kutusu omuzdan bele elle çizilir. Kişi kutusundan türetilirse: yükseklikte %20–55, genişlikte %15–85 (3c); her görüntüde gözle kontrol.",
     "class_codes": {
       "0": "Yelek giyili",
@@ -9,8 +9,8 @@
       "2": "Yelek yok",
       "3": "Belirsiz"
     },
-    "tpfpfn_ids": [],
-    "tpfpfn_secim_olcutu": "DOLDURULACAK — 5f: yalnız altı kontrol görüntüsü. Yöntemler çalışmadan önce seçilir (ör. 2b koşullarının her birinden bir görüntü).",
+        "tpfpfn_ids": ["K-1", "K-3", "K-4", "K-5", "K-7", "K-9"],
+        "tpfpfn_secim_olcutu": "5f: 2b koşullarının her birinden bir kontrol görüntüsü — sources.csv sırasına göre o koşulu taşıyan ilk görüntü, zaten seçilmişse bir sonraki: normal ışık K-1, gölge K-3, uzak K-4, koni K-5, yeleksiz K-7, giyili değil K-9.",
     "kutu_bicimi": "x1, y1, x2, y2; piksel; başlangıç sol üst köşe; data/images_1024 görüntüsüne göre",
     "aktarim": "worn_by: sınıf 'Yelek giyili' ise seçilen kişinin gövdesiyle en çok örtüşen yelek o kişiye atanır (vest=true); diğer yelekler worn_by=null (kimse giymiyor)."
   },
