@@ -2,7 +2,7 @@
   "_frozen": true,
   "_frozen_at": "2026-11-10T21:09:21",
   "_aciklama": "Dondurma 2: B, aşağıdaki HSV aralıklarını, filtreyi ve parça alanı eşiğini YALNIZ G-1…G-8 üzerinde belirler, common.freeze_params() çağırır; params.json'un o anki kopyası ve SHA-256 özeti otomatik olarak kayitlar/ klasörüne yazılır (commit yerine). Bundan sonra hiçbir değer değişmez (5e); sonradan yapılan her deneme 'sonraki kontrol' satırı olur (9b).",
-    "hsv_durumu": "G-1…G-8 hue dağılımına (results/fig/hue_dev.png, B_renk.ipynb hsv_stats) bakılarak belirlendi. Sarı yeleklerin H medyanları 27–36, %95'lik dilimleri ≤ 39 (G-1, G-3, G-6, G-7) → sarı/sarı-yeşil H 22–45. Turuncu yeleklerin H medyanları 11–14, %95'lik dilimleri ≤ 19 (G-2, G-8) → turuncu H 0–18; kırmızıya kayan turuncu için 170–179 ikinci aralık. S ≥ 100/120 ve V ≥ 100, arka planın düşük doygunluklu piksellerini dışarıda bırakmak için. Bilinen zayıflık: 170–179 aralığı G-5'teki kırmızı tişörtü (H medyan 177) de seçiyor ve G-1'in soluk sarı yeleği (S medyan 100) eşik sınırında kalıyor; kural yalnız rengi sınadığı için kabul edildi (H1).",
+  "hsv_durumu": "G-1…G-8 hue dağılımına (results/fig/hue_dev.png, B_renk.ipynb hsv_stats) bakılarak belirlendi. Sarı yeleklerin H medyanları 27–36, %95'lik dilimleri ≤ 39 (G-1, G-3, G-6, G-7) → sarı/sarı-yeşil H 22–45. Turuncu yeleklerin H medyanları 11–14, %95'lik dilimleri ≤ 19 (G-2, G-8) → turuncu H 0–18; kırmızıya kayan turuncu için 170–179 ikinci aralık. S ≥ 100/120 ve V ≥ 100, arka planın düşük doygunluklu piksellerini dışarıda bırakmak için. Bilinen zayıflık: 170–179 aralığı G-5'teki kırmızı tişörtü (H medyan 177) de seçiyor ve G-1'in soluk sarı yeleği (S medyan 100) eşik sınırında kalıyor; kural yalnız rengi sınadığı için kabul edildi (H1).",
   "hsv_yellow": [
     [
       22,
@@ -50,7 +50,7 @@
   "min_part_area_pct": 0.05,
   "ratio_after_parts": false,
   "_ratio_after_parts": "false: maske ve gövde maske oranı 3x3 açmadan sonraki maskeden (5c). true: 5d'de küçük parçalar atıldıktan sonraki maskeden. Seçim dondurulur.",
-    "min_part_area_gerekcesi": "Görüntü alanının %0,05'i: geliştirme setindeki en küçük gerçek yelek G-8'de 609 px, yani 1024×332 görüntünün yaklaşık %0,18'i. Eşik bunun altında kalmalı ki uzak işçinin yeleği atılmasın; %0,05 (≈170 px) bu yeleği tutup tek tük lekeleri atıyor.",
+  "min_part_area_gerekcesi": "Görüntü alanının %0,05'i: geliştirme setindeki en küçük gerçek yelek G-8'de 609 px, yani 1024×332 görüntünün yaklaşık %0,18'i. Eşik bunun altında kalmalı ki uzak işçinin yeleği atılmasın; %0,05 (≈170 px) bu yeleği tutup tek tük lekeleri atıyor.",
   "rule": {
     "min_torso_h": 40,
     "min_mean_v": 50,
